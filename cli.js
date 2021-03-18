@@ -5,6 +5,8 @@ const args = process.argv.slice(2)
 const ppp = require("./package.json")
 // args type : emit filename filetype
 
+const DEFAULT_FILE_NAME = "index";
+
 // (fileType, fileName, fileContent)
 const fsWrite = (foo,bar,baz) => {
     fs.writeFileSync(process.cwd() + "/" + bar + "." + foo, baz)
@@ -54,7 +56,7 @@ const fileHelp = () => {
     console.log("   --rafcp           - create a (.js) ReactJS file.")
     console.log("   --vue             - create a (.vue) VueJS file.")
     console.log(" ")
-    console.log("Note: If filename is not given, `Index` will be used as default.")
+    console.log(`Note: If filename is not given, '${DEFAULT_FILE_NAME}[.extension]' will be used as default.`)
     console.log("      Existing files will be overwritten!!!")
     console.log(" ")
     console.log("Report Issues at https://github.com/Lalisfeed/emit-cli/issues/new.")
@@ -349,7 +351,7 @@ export default {
 
 if (args.length == 1 || args.length == 2){
     if(!args[1]) {
-        args[1] = "Index"
+        args[1] = DEFAULT_FILE_NAME
     }
     if ((args[0] === "--help") || (args[0] === "-h")){
         fileHelp()
@@ -419,7 +421,7 @@ if (args.length == 1 || args.length == 2){
 }
 else if (args.length == 3) {
     if(!args[1]) {
-        args[1] = "Index"
+        args[1] = DEFAULT_FILE_NAME
     }
     if (args[0] == "js" && args[2] == "--rfce") {
         fsWrite(args[0], args[1], rfcePage(args[1]))
